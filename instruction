@@ -17,3 +17,5 @@ for the 2nd time when you make changes in codeBase and you have already stored y
 git add .
   git commit -m "Automatic update: $(date)"
   git push origin main
+
+http://localhost:3000/api/auth/callback?code=eyJhbGciOiJBMjU2R0NNS1ciLCJlbmMiOiJBMjU2R0NNIiwiaXYiOiIwN1hsOWJudjc4SkcxaWpqIiwidGFnIjoiWVRzaXExTWw4dVA1TnllQXlDQmdtdyJ9.9qZEt7HJOIrz62UM1_lJPLPVoJ5Kt1vtHWrfsQpdDT0.tlVhdRjnf4KNiaY_.9WHdV4s70OQ2C9pbh4Tuwgi0Akn0Kg.Rp0cS8eMguXm4n0Wtcn_Dw
