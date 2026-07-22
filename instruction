@@ -7,6 +7,11 @@ git branch -M main
 git remote add origin https://github.com/Abhisheketam01/PORTFOLIO.git // link of the rep
 git push -u origin main
 
+The command 
+git pull origin main --rebase 
+downloads the latest changes from the main branch on GitHub (origin) and 
+integrates them into your local branch using a rebase 
+strategy instead of a standard merge.
 
 for the 2nd time when you make changes in codeBase and you have already stored your code in github
 git add .
