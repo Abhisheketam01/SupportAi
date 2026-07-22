@@ -1,0 +1,14 @@
+for the first time - 
+echo "# PORTFOLIO" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Abhisheketam01/PORTFOLIO.git // link of the rep
+git push -u origin main
+
+
+for the 2nd time when you make changes in codeBase and you have already stored your code in github
+git add .
+  git commit -m "Automatic update: $(date)"
+  git push origin main
