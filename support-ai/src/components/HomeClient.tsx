@@ -3,13 +3,16 @@ import React from 'react'
 import { motion } from 'motion/react'
 
 function HomeClient() {
+    const handleLogin=()=>{
+        window.location.href="/api/auth/login"
+    }
     return (
         <div className='min-h-screen bg-linear-to-br from-white to-zinc-50 text-zinc-900 overflow-x-hidden'>
             <motion.div
             // this is a nav bar 
-            initial={{y:-20}}
+            initial={{y:-80}}
             animate={{y:0}}
-            transition={{duration:1}}
+            transition={{duration:0.5}}
                 className='fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-zinc-200'
             >
                 <div className='max-w-7xl max-auto px-6 h-16 flex items-center justify-between'>
@@ -20,6 +23,7 @@ function HomeClient() {
                     hover:bg-zinc-800 transition
                     disable:opacity-60
                     flex items-center gap-2'
+                    onClick={handleLogin}
                     >Login</button>
                 </div>
             </motion.div>
