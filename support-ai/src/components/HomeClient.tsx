@@ -2,7 +2,7 @@
 import React from 'react'
 import { motion } from 'motion/react'
 
-function HomeClient() {
+function HomeClient({email}:{email:string}) {
     const handleLogin=()=>{
         window.location.href="/api/auth/login"
     }
@@ -17,6 +17,7 @@ function HomeClient() {
             >
                 <div className='max-w-7xl max-auto px-6 h-16 flex items-center justify-between'>
                     <div className='text-lg font-semibold tracking-tight'>Support <span className='text-zinc-400'>Ai</span></div>
+                    {email?<p>{email}</p>:
                     <button // this is login button
                         className='px-5 py-2 rounded-full
                     bg-black text-white text-sm font-medium
@@ -24,7 +25,7 @@ function HomeClient() {
                     disable:opacity-60
                     flex items-center gap-2'
                     onClick={handleLogin}
-                    >Login</button>
+                    >Login</button>}
                 </div>
             </motion.div>
         </div>
