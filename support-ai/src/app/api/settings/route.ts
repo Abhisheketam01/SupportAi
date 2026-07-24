@@ -1,3 +1,5 @@
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
 import connectDB from "@/lib/db";
 import Settings from "@/model/settings.model";
 import { NextRequest , NextResponse } from "next/server";
@@ -16,7 +18,7 @@ export async function POST(req:NextRequest){
         const settings = await Settings.findOneAndUpdate(
                 {ownerId},
                 {ownerId, businessName, supportEmail, knowledge},
-                {new:true, upser:true}
+                {returnDocument: 'after', upsert:true}
         )
         return NextResponse.json(settings)
     } catch (error) {

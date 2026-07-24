@@ -7,18 +7,19 @@ import { useRouter } from 'next/navigation'
 function DashboardClient({ ownerId }: { ownerId: string }) {
 
     const navigate = useRouter()
-    const [businessName, setBusinessName]=useState("")
-    const [supportEmail, setSupportEmail]=useState("")
-    const [knowledge, setKnowledge]=useState("")
-    const [loading, setLoading]=useState(false)
+    const [businessName, setBusinessName] = useState("")
+    const [supportEmail, setSupportEmail] = useState("")
+    const [knowledge, setKnowledge] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [saved, setSaved]=useState(false)
 
-    const handleSettings= async()=>{
+    const handleSettings = async () => {
         setLoading(true)
-        try{
-            const result = await axios.post("/api/settings", {ownerId, businessName, supportEmail, knowledge})
+        try {
+            const result = await axios.post("/api/settings", { ownerId, businessName, supportEmail, knowledge })
             console.log(result.data)
             setLoading(false)
-        } catch (error){
+        } catch (error) {
             console.log(error)
             setLoading(false)
         }
@@ -50,9 +51,9 @@ function DashboardClient({ ownerId }: { ownerId: string }) {
                         <h1 className='text-lg font-medium mb-4'>Business Details</h1>
                         <div className='space-y-4'>
                             <input type="text" className='w-full rounded-xl border border-zinc-300 px-4 py-3 text-sm
-                            focus:outline-none focus:ring-2 focus:ring-black/80' placeholder='Business Name' value={businessName} onChange={(e)=>setBusinessName(e.target.value)}/>
+                            focus:outline-none focus:ring-2 focus:ring-black/80' placeholder='Business Name' value={businessName} onChange={(e) => setBusinessName(e.target.value)} />
                             <input type="text" className='w-full rounded-xl border border-zinc-300 px-4 py-3 text-sm
-                            focus:outline-none focus:ring-2 focus:ring-black/80' placeholder='Support Email' value={supportEmail}  onChange={(e)=>setSupportEmail(e.target.value)}/>
+                            focus:outline-none focus:ring-2 focus:ring-black/80' placeholder='Support Email' value={supportEmail} onChange={(e) => setSupportEmail(e.target.value)} />
                         </div>
                     </div>
 
@@ -61,32 +62,34 @@ function DashboardClient({ ownerId }: { ownerId: string }) {
                         <h1 className='text-lg font-medium mb-4'>Knowledge Base </h1>
                         <p className='text-sm text-zinc-500 mb-4'  >Add FAQS, policies, delievery info, services, etc.</p>
                         <div className='space-y-4'>
-                            <textarea  className='w-full h-55 rounded-xl border border-zinc-300 px-4 py-3 text-sm
-                            focus:outline-none focus:ring-2 focus:ring-black/80' 
-                            placeholder={
-                            `Example:
+                            <textarea className='w-full h-55 rounded-xl border border-zinc-300 px-4 py-3 text-sm
+                            focus:outline-none focus:ring-2 focus:ring-black/80'
+                                placeholder={
+                                    `Example:
 We typically respond within 1 business day.
 Schedule a call directly with our advisory team.
 Mon–Fri, 9:00 AM – 6:00 PM IST / CET.
-GDPR-compliant — your information is never shared with third parties.`} onChange={(e)=>setKnowledge(e.target.value)} value={knowledge}/>
-                        </div>  
+GDPR-compliant — your information is never shared with third parties.`} onChange={(e) => setKnowledge(e.target.value)} value={knowledge} />
+                        </div>
                     </div>
 
 
-<div className='   flex items-center gap-5'>
-    <motion.button
-    whileHover={{scale: 1.03}}
-    whileTap={{scale:0.97}}
-    disabled={loading}
-    onClick={handleSettings}
-    className="px-7 py-3 rounded-xl bg-black text-white text-sm font-medium
+                    <div className='   flex items-center gap-5'>
+                        <motion.button
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            disabled={loading}
+                            onClick={handleSettings}
+                            className="px-7 py-3 rounded-xl bg-black text-white text-sm font-medium
     hover:bg-zinc-800 transistion disabled:opacity-60"
-    >
-        {loading?"Saving...":"Save"}
-    </motion.button>
-</div>
+                        >
+                            {loading ? "Saving..." : "Save"}
+                        </motion.button>
 
-
+                        <motion.span>
+                            ✔️ Settings saved
+                        </motion.span>
+                    </div>
                 </motion.div>
             </div>
         </div>

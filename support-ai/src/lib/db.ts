@@ -1,3 +1,5 @@
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
 import { connect } from "mongoose"
 
 const mongo_url = process.env.MONGODB_URL

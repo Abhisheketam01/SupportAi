@@ -2,7 +2,7 @@ import connectDB from "@/lib/db";
 import Settings from "@/model/settings.model";
 import { NextRequest , NextResponse } from "next/server";
 
-export async function POST(req:NextRequest){
+export async function GET(req:NextRequest){
     try{
         const {ownerId} = await req.json()
         if(!ownerId){
