@@ -1,6 +1,6 @@
 'use client'
 import axios from 'axios'
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation'
 
@@ -19,11 +19,30 @@ function DashboardClient({ ownerId }: { ownerId: string }) {
             const result = await axios.post("/api/settings", { ownerId, businessName, supportEmail, knowledge })
             console.log(result.data)
             setLoading(false)
+            setSaved(true)
+            setTimeout(()=>setSaved(false), 3000)
         } catch (error) {
             console.log(error)
             setLoading(false)
         }
     }
+
+    useEffect(() =>{
+        if(ownerId){
+            const handleGetDetails=async()=>{
+                try{
+                    const result = await axios.post("/api/settings", {ownerId})
+                    setBusinessName(result.data.businessName)
+                    setSupportEmail(result.data.supportEmail)
+                    setKnowledge(result.data.knowledge)
+                } catch(error){
+                    console.log(error)
+                }
+            }
+            handleGetDetails()
+        }
+
+    }, [ownerId])
 
     return (
         <div className='min-h-screen bg-zinc50 text-zinc-900'>
@@ -86,9 +105,14 @@ GDPR-compliant — your information is never shared with third parties.`} onChan
                             {loading ? "Saving..." : "Save"}
                         </motion.button>
 
-                        <motion.span>
+                        { saved && <motion.span
+                                initial={{opacity: 0, y:6}}
+                                animate={{opacity:1, y:0}}
+                                className="text-sm font-medium text-emarald-600"
+                        >
+
                             ✔️ Settings saved
-                        </motion.span>
+                        </motion.span>}
                     </div>
                 </motion.div>
             </div>
