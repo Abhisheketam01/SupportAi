@@ -1,6 +1,8 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation'
+import { AnimatePresence, motion } from 'motion/react';
+import axios from 'axios';
 
 function HomeClient({ email }: { email: string }) {
     const handleLogin = () => {
@@ -18,6 +20,8 @@ function HomeClient({ email }: { email: string }) {
         return () => document.removeEventListener("mousedown", handler)
     }, [])
 
+    const navigate=useRouter()
+
     const features = [
         {
             title: "plug & play",
@@ -33,6 +37,16 @@ function HomeClient({ email }: { email: string }) {
             desc: "Your Coustomer gets instant support  24/7."
         }
     ]
+
+    const handleLogOut = async()=>{
+        // beside logout we wrote onClick()=>{handleLogOut} so that whoever clicks on logout , this function will  get called , and then this will re direct the user to logout path below
+        try{
+            const result = await axios.get("/api/auth/logout")
+            window.location.href ="/"
+        } catch(error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className='min-h-screen bg-linear-to-br from-white to-zinc-50 text-zinc-900 overflow-x-hidden'>
@@ -68,8 +82,8 @@ function HomeClient({ email }: { email: string }) {
                                     overflow-hidden'
                                 >
                                     <button className='w-full text-left px-4 py-3 text-sm font-semibold
-                                hover:bg-zinc-100'>Dashboard</button>
-                                    <button className='block px-4 py-3 text-sm text-red-600 font-semibold hover:bg-zinc-100'>Logout</button>
+                                hover:bg-zinc-100' onClick={()=>navigate.push("/dashboard")}>Dashboard</button>
+                                    <button className='block px-4 py-3 text-sm text-red-600 font-semibold hover:bg-zinc-100' onClick={handleLogOut}>Logout</button>
 
                                 </motion.div>)}
                         </AnimatePresence>
@@ -111,7 +125,7 @@ function HomeClient({ email }: { email: string }) {
                         <div className='mt-10 flex gap-4'>
                             {email ? <button className='px-7 py-3 rounded-xl 
                         bg-black text-white font-medium
-                        hover:bg-zinc-800 transition disabled:opacity-60'>Go to Dashboard</button> : <button className='px-7 py-3 rounded-xl 
+                        hover:bg-zinc-800 transition disabled:opacity-60' onClick={()=>navigate.push("/dashboard")} >Go to Dashboard</button> : <button className='px-7 py-3 rounded-xl 
                         bg-black text-white font-medium
                         hover:bg-zinc-800 transition disabled:opacity-60'
                                 onClick={handleLogin}

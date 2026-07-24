@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@scalekit-sdk/node": "^2.10.0",
+    "axios": "^1.18.1",
+    "mongoose": "^9.8.0",
     "motion": "^12.42.2",
     "next": "^16.2.11",
     "react": "^19.2.8",
