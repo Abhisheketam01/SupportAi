@@ -5,7 +5,10 @@ import { AnimatePresence, motion } from 'motion/react';
 import axios from 'axios';
 
 function HomeClient({ email }: { email: string }) {
+    const [loading,setLoading]=useState(false)
+
     const handleLogin = () => {
+        setLoading(true)
         window.location.href = "/api/auth/login"
     }
     const firstLetter = email ? email[0].toUpperCase() : ''
@@ -34,7 +37,7 @@ function HomeClient({ email }: { email: string }) {
         },
         {
             title: "Always Online",
-            desc: "Your Coustomer gets instant support  24/7."
+            desc: "Your Customer gets instant support  24/7."
         }
     ]
 
@@ -96,7 +99,9 @@ function HomeClient({ email }: { email: string }) {
                     disabled:opacity-60
                     flex items-center gap-2'
                             onClick={handleLogin}
-                        >Login</button>}
+                            disabled={loading}
+
+                        >{loading?"Loading...":"Login"}</button>}
                 </div>
             </motion.div>
             {/* nav section ends here*/}
@@ -115,12 +120,12 @@ function HomeClient({ email }: { email: string }) {
                         transition={{ duration: 0.7 }}
                     >
                         <h1 className='text-4xl md:test-5xl font-semibold leading-tight'>
-                            AI Coustomer Support <br />
-                            Build for Modern websites
+                            AI Customer Support <br />
+                            Built for Modern Websites.
                         </h1>
                         <p className='mt-6 text-lg text-zinc-600 max-w-xl'>
                             Add powerful AI chatbot to your website in minutes.
-                            Let your coustomer get instant answers using your own business Knowledge.
+                            Let your customer get instant answers using your own business Knowledge.
                         </p>
                         <div className='mt-10 flex gap-4'>
                             {email ? <button className='px-7 py-3 rounded-xl 
@@ -186,7 +191,7 @@ function HomeClient({ email }: { email: string }) {
                         viewport={{ once: false }}
                         transition={{ duration: 0.5 }}
                         className='text-3xl font-semibold text-center' >
-                        Why Businesses choose SupportAI
+                        Why Businesses Choose SupportAI
                     </motion.h2>
                     <div className='mt-16 grid grid-cols-1 md:grid-cols-3 gap-10'>
                         {features.map((f, index) => (

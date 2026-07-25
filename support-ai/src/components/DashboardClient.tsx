@@ -55,7 +55,7 @@ function DashboardClient({ ownerId }: { ownerId: string }) {
             >
                 <div className='max-w-7xl mx-auto px-6 h-16 flex items-center justify-between'>
                     <div className='text-lg font-semibold tracking-tight' onClick={() => navigate.push("/")} >Support <span className='text-zinc-400'>Ai</span></div>
-                    <button className='px-3 py-2 rounded-lg border border-zinc-300 text-sm hover:bg-zinc-100 transition'  >Embed ChatBot</button>
+                    <button className='px-3 py-2 rounded-lg border border-zinc-300 text-sm hover:bg-zinc-100 transition' onClick={()=>navigate.push("/embed")}  >Embed ChatBot</button>
 
                 </div>
             </motion.div>
