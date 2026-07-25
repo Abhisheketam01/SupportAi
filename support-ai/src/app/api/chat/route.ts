@@ -1,5 +1,7 @@
+import { GoogleGenAI } from "@google/genai";
 import Settings from "@/model/settings.model";
 import { NextRequest , NextResponse } from "next/server";
+import connectDB from "@/lib/db";
 
 export async function POST(req:NextRequest){
 
@@ -11,6 +13,7 @@ export async function POST(req:NextRequest){
                 {status:400}
             )
         }
+        await connectDB()
 
         const setting = await Settings.findOne({ownerId})
         if(!setting){
@@ -21,7 +24,9 @@ export async function POST(req:NextRequest){
         }
 
         const KNOWLEDGE=`
-        
+        business name=${setting.businessName || "not provided" }
+        support email- ${setting.supportEmail || "not provided" }
+        knowledge- ${setting.knowledge || "not provided"}
         `
         
         const prompt =  `
@@ -49,7 +54,46 @@ export async function POST(req:NextRequest){
         ANSWER
         --------------------------
         `;
-    } catch(error){
 
+        const ai = new GoogleGenAI({apiKey:process.env.GEMINI_API_KEY});
+        const res = await ai.models.generateContent({
+            model:"gemini-3.6-flash",
+            contents:prompt,
+        });
+
+        const replyText = res.candidates?.[0]?.content?.parts?.[0]?.text || "Please contact support.";
+
+        const response =  NextResponse.json(replyText)
+        // const response =  NextResponse.json(res.text)
+
+        // resolving cors issue , 
+        response.headers.set("Access-Control-Allow-Origin", "*");
+        response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+        response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+        return response
+
+    } catch(error){
+        const response = NextResponse.json(
+            {message: `chat error ${error}`},
+            { status: 500 }
+        )
+                // resolving cors issue , 
+        response.headers.set("Access-Control-Allow-Origin", "*");
+        response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+        response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+        return response
     }
+}
+
+export const OPTIONS=async()=>{
+    // allowing cors
+    return NextResponse.json(null, {
+        status:201,
+        headers:{
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Methods" : "POST, OPTIONS",
+            "Access-Control-Allow-Headers" : "Content-Type",
+        }
+    })
 }
