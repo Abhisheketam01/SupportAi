@@ -29,7 +29,7 @@
         justifyContent: "center",
         cursor: "pointer",
         fontSize: "22px",
-        boxShadow: "0 15px 40px rgbs(0,0,0,0.35)",
+        boxShadow: "0 15px 40px rgba(0,0,0,0.35)",
         zIndex: "999999",
     })
 
@@ -62,7 +62,7 @@
     align-items:center;
 "> 
     <span>Customer Support</span>
-    <spam id="chat-close" style="cursor:pointer; font-size:16px">✕</span></div>
+    <span id="chat-close" style="cursor:pointer; font-size:16px">✕</span></div>
     
     <div id="chat-messages" style="
     flex:1;
